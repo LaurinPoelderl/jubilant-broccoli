@@ -1,7 +1,7 @@
 import { html, render } from "lit-html";
 
 class TableComponent extends HTMLElement {
-  static observedAttributes = ["data-column-names"]
+  static observedAttributes = ["data-column-names", "data-column-id"]
   columnNames = []
 
   constructor(){
@@ -14,11 +14,16 @@ class TableComponent extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: any, newValue: string){
-    if (name === "data-column-names") {
-      this.columnNames =JSON.parse(newValue) //no csv :(( /AHHHHHH
+    console.log("attributeChangedCallback", name, oldValue, newValue)
+    switch (name ) {
+      case "data-column-names":
+        this.columnNames = JSON.parse(newValue) //no csv :(( /AHHHHH
+        break;
+      case "data-column-id":
 
-      console.log(this.columnNames)
+
     }
+
   }
 
   template(){
@@ -27,9 +32,11 @@ class TableComponent extends HTMLElement {
         <thead>
           <tr>
             <th>
+              ID
             </th>
             ${this.columnNames.map(columnName => html`
                 <th>
+                  
                   ${columnName}
                 </th>
                 `

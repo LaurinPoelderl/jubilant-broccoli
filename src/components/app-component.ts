@@ -5,9 +5,6 @@ import { AppViewmodel, createAppViewmodel } from "./AppViewmodel";
 import { Todo } from "../features/todo";
 import { filter, map } from "rxjs";
 
-
-console.log("AppComponent imported");
-
 class AppComponent extends HTMLElement {
   connectedCallback() {
     console.log("AppComponent connected");
@@ -21,8 +18,14 @@ class AppComponent extends HTMLElement {
 
   render(viewModel: AppViewmodel) {
     console.log("render component: ", viewModel);
-    render(usersTemplate(viewModel), this);
+    render(template(viewModel), this);
   }
+}
+
+function template(viewModel: AppViewmodel) {
+    return html`
+      <table-component data-column-names="${JSON.stringify(['why', 'is', 'this', 'a', 'f*cking', 'string'])}"></table-component>
+    `
 }
 
 function usersTemplate(viewModel: AppViewmodel) {
