@@ -1,31 +1,39 @@
 import { html, render } from "lit-html";
 
 class TableComponent extends HTMLElement {
-  static observedAttributes = []
+  static observedAttributes = ["data-column-names"]
+  columnNames = []
 
   constructor(){
     super()
+    console.log("Hello there")
   }
 
   connectedCallback() {
-    this.render()
+    render(this.template(), this)
   }
 
-  attributeChangedCallback(name, oldValue, newValue){
-    console.log("")
+  attributeChangedCallback(name: string, oldValue: any, newValue: string){
+    if (name === "data-column-names") {
+      this.columnNames =JSON.parse(newValue) //no csv :(( /AHHHHHH
+
+      console.log(this.columnNames)
+    }
   }
 
-  render(){
+  template(){
     return html`
       <table>
         <thead>
           <tr>
             <th>
-              ID
             </th>
-            <th>
-              NAME
-            </th>
+            ${this.columnNames.map(columnName => html`
+                <th>
+                  ${columnName}
+                </th>
+                `
+            )}
           </tr>
         </thead>
       </table>
