@@ -12,7 +12,7 @@ const template = (users: User[]) => html`
     `)}
 `
 
-class userTodosComponent extends UserIdObservingElement {
+class UserTodosComponent extends UserIdObservingElement {
     override subscribe(){
         store
           .pipe(
@@ -23,4 +23,4 @@ class userTodosComponent extends UserIdObservingElement {
     }
 }
 
-customElements.define("user-todos", userTodosComponent)
+customElements.define("user-todos", UserTodosComponent)
