@@ -3,7 +3,7 @@ import { User } from "../../features/user"
 import "../table"
 import { UserIdObservingElement } from "../utils"
 import { store } from "../../features"
-import { map } from "rxjs"
+import { distinctUntilChanged, filter, map } from "rxjs"
 
 const template = (user: User) => html`
     <div class="container">
@@ -19,6 +19,8 @@ class UserTodosComponent extends UserIdObservingElement {
             .pipe(
                 map(model => model.users),
                 map(users => users.find(user => user.id == this.userId)),
+                filter(user => !!user),
+                distinctUntilChanged(),
                 map(template)
             )
             .subscribe(content => render(content, this))
