@@ -2,7 +2,7 @@ import { html, render } from "lit-html";
 import { User } from "../../features/user";
 import { store } from "../../features";
 import "../table/todo-table-component";
-import { distinctUntilChanged, map } from "rxjs";
+import { distinctUntilChanged, filter, map } from "rxjs";
 import { UserIdObservingElement } from "../utils";
 
 const template = (user: User) => html`
@@ -19,6 +19,7 @@ class UserTodosComponent extends UserIdObservingElement {
       .pipe(
         map((model) => model.users),
         map((users) => users.find((user) => user.id === this.userId)),
+        filter((user) => !!user),
         distinctUntilChanged()
       )
       .subscribe((user) => render(template(user), this));
