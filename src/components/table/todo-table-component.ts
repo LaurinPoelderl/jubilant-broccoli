@@ -14,7 +14,7 @@ class ToDoTableComponent extends UserIdObservingElement {
         tap(todos => console.log(todos)),
         distinctUntilChanged()
       )
-      .subscribe(todos => render(template(todos), this ))
+      .subscribe(todos => render(template(todos), this))
   }
 }
 customElements.define("todo-table", ToDoTableComponent)
