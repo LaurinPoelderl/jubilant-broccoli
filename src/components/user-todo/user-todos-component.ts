@@ -13,6 +13,11 @@ const template = (users: User[]) => html`
 `
 
 class UserTodosComponent extends UserIdObservingElement {
+
+    connectedCallback(){
+        this.subscribe();
+    }
+
     override subscribe(){
         store
           .pipe(

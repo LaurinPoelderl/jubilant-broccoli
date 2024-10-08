@@ -22,12 +22,12 @@ class AppComponent extends HTMLElement {
 
 function template(viewModel: AppViewmodel) {
   return html`
-   <div style="display: flex;">
-    <div>
+   <div style="display: flex; justify-content: space-around; margin: 1.5% 5%">
+    <div style="margin-right: 5%">
       <h1>Users</h1>
       <user-todos></user-todos>
     </div>
-    <div>
+    <div style="margin-left: 5%">
       <h1>Todos</h1>
       <todo-table></todo-table>
     </div>
