@@ -1,4 +1,4 @@
-import { html } from "lit-html"
+import { html, render } from "lit-html"
 import { User } from "../../features/user"
 import "../table"
 import { UserIdObservingElement } from "../utils"
@@ -18,9 +18,10 @@ class UserTodosComponent extends UserIdObservingElement {
        store
             .pipe(
                 map(model => model.users),
-                map(users => users.find(user => user.id == this.userId))
+                map(users => users.find(user => user.id == this.userId)),
+                map(template)
             )
-            .subscribe(user => console.log("Machen: render ", user))
+            .subscribe(content => render(content, this))
     }
 }
 customElements.define("user-todos", UserTodosComponent)

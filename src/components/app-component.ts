@@ -24,7 +24,6 @@ class AppComponent extends HTMLElement {
 }
 function template(viewModel: AppViewmodel) {
     return html`
-      <todo-table user-id="4"></todo-table>
       <user-todos user-id="4"></user-todos>
     `
 }
