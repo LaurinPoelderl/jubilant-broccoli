@@ -2,18 +2,11 @@ import { html, render } from "lit-html";
 import { store } from "../../features";
 import { distinctUntilChanged, filter, map, share, tap } from "rxjs";
 import { Todo } from "../../features/todo";
+import { UserIdObservingElement } from "../utils"
 
-class ToDoTableComponent extends HTMLElement {
-  static observedAttributes = ["user-id"]
-  userId?: number
-
-  connectedCallback() {
-    this.subscribe()
-  }
-  subscribe() {
-
+class ToDoTableComponent extends UserIdObservingElement {
+  override subscribe() {
     const isMyTodo = (todo: Todo) => todo.userId == this.userId || !this.userId
-    
     store
       .pipe(
         map(model => model.todos),
@@ -22,18 +15,6 @@ class ToDoTableComponent extends HTMLElement {
         distinctUntilChanged()
       )
       .subscribe(todos => render(template(todos), this ))
-
-  }
-  attributeChangedCallback(name: string, _: any, value: string){
-    console.log("attributeChangedCallback", name, _, value)
-    switch (name ) {
-      case "user-id":
-        this.userId = value ? parseInt(value) : undefined
-        this.subscribe()
-        break;
-        default:
-          console.error("wos?")
-    }
   }
 }
 customElements.define("todo-table", ToDoTableComponent)

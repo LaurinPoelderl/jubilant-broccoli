@@ -1,9 +1,10 @@
 import { html, render } from "lit-html";
-import { Model, store } from "../features";
+import { store } from "../features";
 import { User } from "../features/user";
 import { AppViewmodel, createAppViewmodel } from "./AppViewmodel";
 import { Todo } from "../features/todo";
 import { filter, map } from "rxjs";
+import "../components/user-todo/user-todo-component"
 
 class AppComponent extends HTMLElement {
   connectedCallback() {
@@ -24,6 +25,7 @@ class AppComponent extends HTMLElement {
 function template(viewModel: AppViewmodel) {
     return html`
       <todo-table user-id="4"></todo-table>
+      <user-todos user-id="4"></user-todos>
     `
 }
 
