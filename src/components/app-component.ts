@@ -21,10 +21,9 @@ class AppComponent extends HTMLElement {
     render(template(viewModel), this);
   }
 }
-
 function template(viewModel: AppViewmodel) {
     return html`
-      <table-component data-column-names="${JSON.stringify(['why', 'is', 'this', 'a', 'f*cking', 'string'])}"></table-component>
+      <todo-table user-id="4"></todo-table>
     `
 }
 
