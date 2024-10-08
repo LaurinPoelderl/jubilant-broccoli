@@ -1,6 +1,6 @@
 import { html, render } from "lit-html";
 import { store } from "../../features";
-import { distinctUntilChanged, filter, map, share } from "rxjs";
+import { distinctUntilChanged, filter, map, share, tap } from "rxjs";
 import { Todo } from "../../features/todo";
 
 class ToDoTableComponent extends HTMLElement {
@@ -8,6 +8,7 @@ class ToDoTableComponent extends HTMLElement {
   userId?: number
 
   connectedCallback() {
+    this.subscribe()
   }
   subscribe() {
 
@@ -17,6 +18,7 @@ class ToDoTableComponent extends HTMLElement {
       .pipe(
         map(model => model.todos),
         map(todos => todos.filter(isMyTodo)),
+        tap(todos => console.log(todos)),
         distinctUntilChanged()
       )
       .subscribe(todos => render(template(todos), this ))
