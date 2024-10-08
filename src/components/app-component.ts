@@ -1,9 +1,9 @@
 import { html, render } from "lit-html";
-import { Model, store } from "../features";
-import { User } from "../features/user";
+import { store } from "../features";
 import { AppViewmodel, createAppViewmodel } from "./AppViewmodel";
-import { Todo } from "../features/todo";
+
 import { filter, map } from "rxjs";
+import "./all-users/all-users-component";
 
 class AppComponent extends HTMLElement {
   connectedCallback() {
@@ -24,61 +24,23 @@ class AppComponent extends HTMLElement {
 
 function template(viewModel: AppViewmodel) {
     return html`
-      <table-component data-column-names="${JSON.stringify(['why', 'is', 'this', 'a', 'f*cking', 'string'])}"></table-component>
-    `
-}
+      <style>
+        .flex {
+          display: flex;
+          gap: 2rem;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      </style>
+      <div class="flex">
+        <all-users></all-users>
 
-function usersTemplate(viewModel: AppViewmodel) {
-  return html`
-    ${viewModel.userTodos.map((userTodo) =>
-      userRowTemplate(userTodo.user, userTodo.todos)
-    )}
-  `;
-}
-
-function userRowTemplate(user: User, todos: Todo[]) {
-  return html`
-    <style>
-      details > summary {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-    </style>
-    <div>
-      <details>
-        <summary><h2>${user.name}</h2></summary>
-        ${todoTableTemplate(todos)}
-      </details>
-    </div>
-  `;
-}
-
-function todoTableTemplate(todos: Todo[]) {
-  return html`
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Completed</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${todos.map((todo) => todoRowTemplate(todo))}
-      </tbody>
-    </table>
-  `;
-}
-
-function todoRowTemplate(todo: Todo) {
-  return html`
-    <tr>
-      <td>${todo.title}</td>
-      <td>
-        <input type="checkbox" .checked=${todo.completed} disabled />
-      </td>
-    </tr>
-  `;
+        <div>
+          <h2>All Todos</h2>
+          <todo-table></todo-table>
+        </div>
+      </div>
+    `;
 }
 
 customElements.define("app-component", AppComponent);
