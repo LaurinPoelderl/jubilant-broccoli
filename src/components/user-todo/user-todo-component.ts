@@ -7,13 +7,17 @@ import { distinctUntilChanged, filter, map } from "rxjs"
 
 const template = (user: User) => html`
     <div class="container">
-        <div>${user.name}</div>
+        <h3 class="large">${user.name}</h3>
         <hr/>
         <todo-table user-id=${user.id}></todo-table>
     </div>
 `
 
 class UserTodosComponent extends UserIdObservingElement {
+    constructor() {
+        super()
+        this.attachShadow({mode: "open"})
+    }
     override subscribe() {
        store
             .pipe(
@@ -23,7 +27,7 @@ class UserTodosComponent extends UserIdObservingElement {
                 distinctUntilChanged(),
                 map(template)
             )
-            .subscribe(content => render(content, this))
+            .subscribe(content => render(content, this.shadowRoot))
     }
 }
 customElements.define("user-todos", UserTodosComponent)

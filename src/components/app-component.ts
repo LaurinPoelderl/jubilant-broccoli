@@ -1,5 +1,5 @@
-import { html, render } from "lit-html";
-import "../components/user-todo/user-todo-component"
+import { html, render } from "lit-html"
+import "../components/user-todo/all-users-component"
 
 class AppComponent extends HTMLElement {
   connectedCallback() {
@@ -9,7 +9,7 @@ class AppComponent extends HTMLElement {
 }
 function template() {
     return html`
-      <user-todos user-id="4"></user-todos>
+      <all-user-todos class="container"></all-user-todos>
     `
 }
-customElements.define("app-component", AppComponent);
+customElements.define("app-component", AppComponent)

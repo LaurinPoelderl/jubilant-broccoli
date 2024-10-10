@@ -1,10 +1,14 @@
 import { html, render } from "lit-html";
 import { store } from "../../features";
-import { distinctUntilChanged, filter, map, share, tap } from "rxjs";
+import { distinctUntilChanged, map, tap } from "rxjs";
 import { Todo } from "../../features/todo";
 import { UserIdObservingElement } from "../utils"
 
 class ToDoTableComponent extends UserIdObservingElement {
+  constructor() {
+    super()
+    this.attachShadow({mode: "open"})
+  }
   override subscribe() {
     const isMyTodo = (todo: Todo) => todo.userId == this.userId || !this.userId
     store
@@ -14,7 +18,7 @@ class ToDoTableComponent extends UserIdObservingElement {
         tap(todos => console.log(todos)),
         distinctUntilChanged()
       )
-      .subscribe(todos => render(template(todos), this))
+      .subscribe(todos => render(template(todos), this.shadowRoot))
   }
 }
 customElements.define("todo-table", ToDoTableComponent)
@@ -22,6 +26,7 @@ customElements.define("todo-table", ToDoTableComponent)
 function template(todos: Todo[]) {
   const rows = todos.map(todo => html`<tr><td>${todo.id}</td><td>${todo.title}</td></tr>`)
   return html`
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <table>
     <thead>
       <tr>
