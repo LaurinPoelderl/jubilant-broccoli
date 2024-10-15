@@ -5,13 +5,6 @@ import "../table/todo-table-component";
 import { distinctUntilChanged, filter, map } from "rxjs";
 import { UserIdObservingElement } from "../utils";
 
-const template = (user: User) => html`
-  <div class="container">
-    <h2>${user.name}</h2>
-    <hr />
-    <todo-table user-id=${user.id}></todo-table>
-  </div>
-`;
 
 class UserTodosComponent extends UserIdObservingElement {
   override subscribe() {
@@ -22,8 +15,16 @@ class UserTodosComponent extends UserIdObservingElement {
         filter((user) => !!user),
         distinctUntilChanged()
       )
-      .subscribe((user) => render(template(user), this));
+      .subscribe((user) => render(this.template(user), this));
   }
+
+  template = (user: User) => html`
+  <div class="container">
+    <h2>${user.name}</h2>
+    <hr />
+    <todo-table @todo-clicked=${() => console.log("todo selected")} user-id=${user.id}></todo-table>
+  </div>
+`;
 }
 
 customElements.define("user-todos", UserTodosComponent);

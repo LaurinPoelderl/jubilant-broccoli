@@ -6,7 +6,16 @@ import { filter, map } from "rxjs";
 import "./all-users/all-users-component";
 
 class AppComponent extends HTMLElement {
+  private root: ShadowRoot;
+  constructor() {
+    super();
+
+    this.root = this.attachShadow({ mode: "closed" });
+
+  }
+
   connectedCallback() {
+    
     console.log("AppComponent connected");
     store
       .pipe(
@@ -18,7 +27,7 @@ class AppComponent extends HTMLElement {
 
   render(viewModel: AppViewmodel) {
     console.log("render component: ", viewModel);
-    render(template(viewModel), this);
+    render(template(viewModel), this.root);
   }
 }
 
