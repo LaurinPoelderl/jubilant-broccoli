@@ -3,6 +3,7 @@ import { store } from "../../features";
 import { distinctUntilChanged, filter, map, share, tap } from "rxjs";
 import { Todo } from "../../features/todo";
 import { UserIdObservingElement } from "../utils";
+import { toggleTodo } from "../../features/todo/todo-service";
 
 class ToDoTableComponent extends UserIdObservingElement {
   static observedAttributes = ["user-id"];
@@ -36,7 +37,7 @@ class ToDoTableComponent extends UserIdObservingElement {
         <tbody>
           ${todos.map(
             (todo) => html`
-              <tr @click=${() => this.todoSelected(todo)}>
+              <tr @click=${() => toggleTodo(todo)}>
                 <td>${todo.id}</td>
                 <td>${todo.title}</td>
                 <td>

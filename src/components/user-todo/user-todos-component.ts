@@ -5,7 +5,6 @@ import "../table/todo-table-component";
 import { distinctUntilChanged, filter, map } from "rxjs";
 import { UserIdObservingElement } from "../utils";
 
-
 class UserTodosComponent extends UserIdObservingElement {
   override subscribe() {
     store
@@ -19,12 +18,15 @@ class UserTodosComponent extends UserIdObservingElement {
   }
 
   template = (user: User) => html`
-  <div class="container">
-    <h2>${user.name}</h2>
-    <hr />
-    <todo-table @todo-clicked=${() => console.log("todo selected")} user-id=${user.id}></todo-table>
-  </div>
-`;
+    <div class="container">
+      <h2>${user.name}</h2>
+      <hr />
+      <todo-table
+        @todo-clicked=${() => console.log("todo selected")}
+        user-id=${user.id}
+      ></todo-table>
+    </div>
+  `;
 }
 
 customElements.define("user-todos", UserTodosComponent);

@@ -4,7 +4,11 @@ import { BASE_URL, store } from "../";
 
 export async function loadAllTodos() {
   const response = await fetch(`${BASE_URL}/todos`);
-  const todos: Todo[] = await response.json();
+  const todos = await response.json();
+
+  todos.forEach((todo) => {
+    todo.id = parseInt(todo.id);
+  });
 
   let next = produce(store.getValue(), (draft) => {
     draft.todos = todos;
@@ -13,4 +17,29 @@ export async function loadAllTodos() {
   console.log("next is:", next);
 
   store.next(next);
+}
+
+export async function toggleTodo(todo: Todo) {
+  const updatedTodo = { ...todo, completed: !todo.completed };
+
+  console.log("todo", todo);
+  console.log("updated todo", updatedTodo);
+
+  const request = new Request(`${BASE_URL}/todos/${todo.id}`, {
+    method: "PUT",
+    body: JSON.stringify(updatedTodo),
+  });
+  const response = await fetch(request);
+
+  const res: Todo = await response.json();
+
+  let next = produce(store.getValue(), (draft) => {
+    const index = draft.todos.findIndex((t) => t.id === res.id);
+    if (index !== -1) {
+      draft.todos[index] = res;
+    }
+  });
+  store.next(next);
+
+  location.reload();
 }
