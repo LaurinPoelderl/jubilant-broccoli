@@ -3,6 +3,7 @@
 import { produce } from "immer";
 import { Todo } from ".";
 import { BASE_URL, store } from "../";
+import { DraftTodo } from "./todo";
 
 export async function loadAllTodos() {
   const response = await fetch(`${BASE_URL}/todos`);
@@ -17,7 +18,7 @@ export async function loadAllTodos() {
   store.next(next);
 }
 
-export async function toggleTodoCompleted(todoId: number) {
+export async function toggleTodoCompleted(todoId: Todo["id"]) {
   const todo = store.getValue().todos.find((todo) => todo.id === todoId);
   if (!todo) {
     return;
@@ -49,7 +50,7 @@ export async function toggleTodoCompleted(todoId: number) {
   store.next(next);
 }
 
-export async function deleteTodo(todoId: number) {
+export async function deleteTodo(todoId: Todo["id"]) {
   const todo = store.getValue().todos.find((todo) => todo.id === todoId);
 
   if (!todo) {
@@ -73,7 +74,34 @@ export async function deleteTodo(todoId: number) {
   store.next(next);
 }
 
-export async function createTodo() {
+export async function createTodo(draft: DraftTodo) {
+  const storeValues = store.getValue();
+  if(!storeValues.users.find((user) => user.id === draft.userId)) {
+    console.error("User does not exist");
+    return;
+  }
 
+  const response = await fetch(`${BASE_URL}/todos`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...draft , completed: false}),
+  });
+
+  if (!response.ok) {
+    console.error("Failed to create todo");
+    return;
+  }
+
+  const todo: Todo = await response.json();
+
+  const next = produce(storeValues, (draft) => {
+    draft.todos.push(todo);
+    draft.selectedUser = undefined;
+    draft.userSearchQuery = "";
+  });
+
+  store.next(next);
 }
 

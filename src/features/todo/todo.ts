@@ -1,7 +1,10 @@
+import { User } from "../user";
+
 export type Todo = {
-  readonly userId: number;
-  readonly id: number;
+  readonly userId: User["id"];
+  readonly id: string;
   readonly title: string;
   readonly completed: boolean;
 };
 
+export type DraftTodo = Omit<Todo, "id" | "completed">;

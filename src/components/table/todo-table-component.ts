@@ -26,6 +26,9 @@ class ToDoTableComponent extends UserIdObservingElement {
   }
 
   template(todos: Todo[]) {
+    if(todos.length === 0) {
+      return html`<p>No todos found</p>`;
+    }
     return html`
       <style>
         .smiley-checkbox {

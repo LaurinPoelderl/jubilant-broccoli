@@ -4,8 +4,9 @@ import { html, render } from "lit-html";
 import { distinctUntilChanged, map } from "rxjs";
 import { store } from "../../features";
 import "../user-todo/user-todos-component";
+import { User } from "../../features/user";
 
-const singleUserTemplate = (userId: number) => html`
+const singleUserTemplate = (userId: User["id"]) => html`
   <div>
     <user-todos user-id=${userId}></user-todos>
   </div>

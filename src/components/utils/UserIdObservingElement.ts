@@ -1,3 +1,5 @@
+import { User } from "../../features/user";
+
 export abstract class UserIdObservingElement extends HTMLElement {
   static observedAttributes = ["user-id"];
 
@@ -16,8 +18,8 @@ export abstract class UserIdObservingElement extends HTMLElement {
     }
   }
 
-  get userId() {
+  get userId(): User["id"] | undefined {
     const userIdAttr = this.getAttribute("user-id");
-    return userIdAttr ? parseInt(userIdAttr) : undefined;
+    return userIdAttr ? userIdAttr : undefined;
   }
 }

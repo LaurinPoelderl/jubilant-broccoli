@@ -6,6 +6,8 @@ import { AppViewmodel, createAppViewmodel } from "./AppViewmodel";
 
 import { filter, map } from "rxjs";
 import "./all-users/all-users-component";
+import "./create-todo/create-todo-component";
+import "./create-user/create-user-component";
 
 class AppComponent extends HTMLElement {
   private root: ShadowRoot;
@@ -19,7 +21,6 @@ class AppComponent extends HTMLElement {
     console.log("AppComponent connected");
     store
       .pipe(
-        filter((model) => model.todos.length > 0),
         map(createAppViewmodel)
       )
       .subscribe((appViewModel) => this.render(appViewModel));
@@ -40,7 +41,16 @@ class AppComponent extends HTMLElement {
           padding-right: 1rem;
         }
       </style>
-      <div class="flex" @toggle-todo-completed=${viewModel.toggleTodoCompleted} @delete-todo=${viewModel.deleteTodo}>
+      <div class="flex">
+        <create-todo @create-todo=${viewModel.createTodo} @search-user=${viewModel.searchUser} @select-user=${viewModel.selectUser}></create-todo>
+        <create-user @create-user=${viewModel.createUser}></create-user>
+      </div>
+      <div
+        class="flex"
+        @toggle-todo-completed=${viewModel.toggleTodoCompleted}
+        @delete-todo=${viewModel.deleteTodo}
+        @delete-user=${viewModel.deleteUser}
+      >
         <all-users></all-users>
 
         <div>

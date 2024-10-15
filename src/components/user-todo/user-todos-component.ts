@@ -18,19 +18,49 @@ class UserTodosComponent extends UserIdObservingElement {
       .pipe(
         map((model) => model.users),
         map((users) => users.find((user) => user.id == this.userId)),
-        filter((user) => !!user),
+        // filter((user) => !!user),
         distinctUntilChanged()
       )
       .subscribe((user) => render(this.template(user), this.shadowRoot));
   }
 
-  template = (user: User) => html`
-    <div class="container">
-      <h2>${user.name}</h2>
-      <hr />
-      <todo-table user-id=${user.id}></todo-table>
-    </div>
-  `;
+  deleteUser(user: User) {
+    this.dispatchEvent(
+      new CustomEvent("delete-user", {
+        detail: user,
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
+
+  template(user: User | undefined) {
+    if (!user) {
+      return html`<p>User not found</p>`;
+    }
+    return html`
+      <style>
+        .flex {
+          display: flex;
+          gap: 2rem;
+        }
+        button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          font-size: 1.5rem;
+        }
+      </style>
+      <div class="container">
+        <div class="flex">
+          <h2>${user.name}</h2>
+          <button @click=${() => this.deleteUser(user)}>🗑️</button>
+        </div>
+        <hr />
+        <todo-table user-id=${user.id}></todo-table>
+      </div>
+    `;
+  }
 }
 
 customElements.define("user-todos", UserTodosComponent);
