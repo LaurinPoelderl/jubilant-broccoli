@@ -36,11 +36,15 @@ class ToDoTableComponent extends UserIdObservingElement {
         <tbody>
           ${todos.map(
             (todo) => html`
-              <tr @click=${() => this.todoSelected(todo)}>
+              <tr>
                 <td>${todo.id}</td>
                 <td>${todo.title}</td>
                 <td>
-                  <input type="checkbox" ?checked=${todo.completed} disabled />
+                  <input
+                    type="checkbox"
+                    ?checked=${todo.completed}
+                    @click=${() => this.toggleTodoCompleted(todo)}
+                  />
                 </td>
               </tr>
             `
@@ -50,10 +54,11 @@ class ToDoTableComponent extends UserIdObservingElement {
     `;
   }
 
-  todoSelected(todo: Todo) {
-    console.log("todo selected", todo);
-    const event = new CustomEvent("todo-clicked", {
-      detail: todo.id
+  toggleTodoCompleted(todo: Todo) {
+    const event = new CustomEvent("toggle-todo-completed", {
+      detail: todo.id,
+      bubbles: true,
+      composed: true,
     });
     this.dispatchEvent(event);
   }

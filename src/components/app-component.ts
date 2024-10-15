@@ -42,7 +42,7 @@ function template(viewModel: AppViewmodel) {
         }
       </style>
       <div class="flex">
-        <all-users></all-users>
+        <all-users @toggle-todo-completed=${(e: CustomEvent) => console.log("toggle todo completed", e)}></all-users>
 
         <div>
           <h2>All Todos</h2>
