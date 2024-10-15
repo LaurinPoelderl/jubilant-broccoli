@@ -1,2 +1,2 @@
 export {Todo} from './todo'; 
-export {loadAllTodos} from './todo-service';
+export {loadAllTodos, toggleTodoCompleted} from './todo-service';

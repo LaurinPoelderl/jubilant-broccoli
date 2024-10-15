@@ -25,6 +25,29 @@ class ToDoTableComponent extends UserIdObservingElement {
 
   template(todos: Todo[]) {
     return html`
+      <style>
+        .smiley-checkbox {
+          appearance: none;
+          -webkit-appearance: none;
+          width: 30px;
+          height: 30px;
+          cursor: pointer;
+          border-radius: 50%;
+          font-size: 24px;
+          text-align: center;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .smiley-checkbox::before {
+          content: "😭";
+        }
+
+        .smiley-checkbox:checked::before {
+          content: "🍺";
+        }
+      </style>
       <table>
         <thead>
           <tr>
@@ -41,6 +64,7 @@ class ToDoTableComponent extends UserIdObservingElement {
                 <td>${todo.title}</td>
                 <td>
                   <input
+                    class="smiley-checkbox"
                     type="checkbox"
                     ?checked=${todo.completed}
                     @click=${() => this.toggleTodoCompleted(todo)}

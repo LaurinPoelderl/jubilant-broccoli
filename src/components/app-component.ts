@@ -11,27 +11,25 @@ class AppComponent extends HTMLElement {
     super();
 
     this.root = this.attachShadow({ mode: "closed" });
-
   }
 
   connectedCallback() {
-    
     console.log("AppComponent connected");
     store
       .pipe(
-        filter(model => model.todos.length > 0),
+        filter((model) => model.todos.length > 0),
         map(createAppViewmodel)
       )
-      .subscribe(appViewModel => this.render(appViewModel));
+      .subscribe((appViewModel) => this.render(appViewModel));
   }
 
   render(viewModel: AppViewmodel) {
     console.log("render component: ", viewModel);
-    render(template(viewModel), this.root);
+    render(this.template(viewModel), this.root);
   }
-}
 
-function template(viewModel: AppViewmodel) {
+
+  template(viewModel: AppViewmodel) {
     return html`
       <style>
         .flex {
@@ -42,7 +40,9 @@ function template(viewModel: AppViewmodel) {
         }
       </style>
       <div class="flex">
-        <all-users @toggle-todo-completed=${(e: CustomEvent) => console.log("toggle todo completed", e)}></all-users>
+        <all-users
+          @toggle-todo-completed=${viewModel.toggleTodoCompleted}
+        ></all-users>
 
         <div>
           <h2>All Todos</h2>
@@ -50,6 +50,7 @@ function template(viewModel: AppViewmodel) {
         </div>
       </div>
     `;
+  }
 }
 
 customElements.define("app-component", AppComponent);
