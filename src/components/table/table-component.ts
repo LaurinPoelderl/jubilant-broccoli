@@ -1,51 +1,55 @@
-import { html, render } from "lit-html";
+import {html, render} from "lit-html";
+import {store} from "../../features";
+import {distinctUntilChanged, filter, map} from "rxjs";
+import {UserIdObservingElement} from "../utils/UserIdObservingElement";
+import {toggleTodo} from "../../features/todo/todo-service";
+import {Todo} from "../../features/todo";
 
-class TableComponent extends HTMLElement {
-  static observedAttributes = ["data-column-names", "data-column-id"]
-  columnNames = []
-
-  constructor(){
+class TodoTable extends UserIdObservingElement {
+  constructor() {
     super()
-    console.log("Hello there")
   }
 
-  connectedCallback() {
-    render(this.template(), this)
+  override subscribe() {
+    store
+        .pipe(
+            map(model => model.todos),
+            map(todos => todos.filter(todo => todo.userId == this.userId || !this.userId)),
+            distinctUntilChanged(),
+        )
+        .subscribe(todos => {
+          render(this.template(todos), this)
+        })
   }
 
-  attributeChangedCallback(name: string, oldValue: any, newValue: string){
-    console.log("attributeChangedCallback", name, oldValue, newValue)
-    switch (name ) {
-      case "data-column-names":
-        this.columnNames = JSON.parse(newValue) //no csv :(( /AHHHHH
-        break;
-      case "data-column-id":
-
-
-    }
-
-  }
-
-  template(){
-    return html`
-      <table>
-        <thead>
-          <tr>
-            <th>
-              ID
-            </th>
-            ${this.columnNames.map(columnName => html`
-                <th>
-                  
-                  ${columnName}
-                </th>
-                `
-            )}
-          </tr>
-        </thead>
-      </table>
+  template(todos) {
+    console.log(todos)
+    const rows = todos.map(todo => {
+      return html`
+      <tr id=${todo.id} @click=${() => toggleTodo(todo)}>
+        <td>${todo.id}</td>
+        <td>${todo.title}</td>
+        <td>${todo.completed? `😊` : `😔`}</td>
+      </tr>
     `
+    })
+    return html`
+    <table>
+      <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+          Title
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+  `
   }
 }
-
-customElements.define("table-component", TableComponent)
+customElements.define("table-component", TodoTable)
