@@ -33,6 +33,7 @@ export async function toggleTodoCompleted(todoId: number) {
 
   if(!response.ok) {
     console.error("Failed to toggle todo completed");
+    store.next(store.getValue());
     return;
   }
 

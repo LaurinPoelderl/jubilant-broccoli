@@ -4,7 +4,7 @@
       "userId": 1,
       "id": "1",
       "title": "delectus aut autem",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 1,
@@ -16,7 +16,7 @@
       "userId": 1,
       "id": "3",
       "title": "fugiat veniam minus",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 1,

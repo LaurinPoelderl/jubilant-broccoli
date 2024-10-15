@@ -39,10 +39,8 @@ class AppComponent extends HTMLElement {
           padding-right: 1rem;
         }
       </style>
-      <div class="flex">
-        <all-users
-          @toggle-todo-completed=${viewModel.toggleTodoCompleted}
-        ></all-users>
+      <div class="flex" @toggle-todo-completed=${viewModel.toggleTodoCompleted}>
+        <all-users></all-users>
 
         <div>
           <h2>All Todos</h2>
