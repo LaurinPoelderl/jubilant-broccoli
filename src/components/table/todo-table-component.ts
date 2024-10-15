@@ -2,7 +2,7 @@ import { html, render } from "lit-html";
 import { store } from "../../features";
 import { distinctUntilChanged, filter, map, share, tap } from "rxjs";
 import { Todo } from "../../features/todo";
-import {  UserIdObservingElement } from "../utils";
+import { UserIdObservingElement } from "../utils";
 
 class ToDoTableComponent extends UserIdObservingElement {
   static observedAttributes = ["user-id"];
@@ -40,7 +40,7 @@ class ToDoTableComponent extends UserIdObservingElement {
                 <td>${todo.id}</td>
                 <td>${todo.title}</td>
                 <td>
-                  <input type="checkbox" ?checked=${todo.completed} disabled />
+                  <input type="checkbox" ?checked=${todo.completed} />
                 </td>
               </tr>
             `
@@ -53,7 +53,7 @@ class ToDoTableComponent extends UserIdObservingElement {
   todoSelected(todo: Todo) {
     console.log("todo selected", todo);
     const event = new CustomEvent("todo-clicked", {
-      detail: todo.id
+      detail: todo.id,
     });
     this.dispatchEvent(event);
   }
