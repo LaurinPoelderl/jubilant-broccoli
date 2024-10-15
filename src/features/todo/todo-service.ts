@@ -16,19 +16,19 @@ export async function loadAllTodos() {
   store.next(next);
 }
 
-export async function toggleTodo(task: Todo) {
+export async function toggleTodo(todo: Todo) {
   try {
-    const updatedTask = { ...task, completed: !task.completed };
+    const updatedTodo = { ...todo, completed: !todo.completed };
 
-    console.log("Original task:", task);
-    console.log("Task with toggled completion:", updatedTask);
+    console.log("Original task:", todo);
+    console.log("Task with toggled completion:", updatedTodo);
 
-    const response = await fetch(`${BASE_URL}/todos/${task.id}`, {
-      method: "PUT",
+    const response = await fetch(`${BASE_URL}/todos/${todo.id}`, {
+      method: "PUT" ,
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedTask),
+      body: JSON.stringify(updatedTodo),
     });
 
     if (!response.ok) {
@@ -37,18 +37,18 @@ export async function toggleTodo(task: Todo) {
 
     const updatedServerTask: Todo = await response.json();
 
-    updateStoreWithTask(updatedServerTask);
+    updateStoreWithTodo(updatedServerTask);
 
   } catch (error) {
     console.error("Error updating task:", error);
   }
 }
 
-function updateStoreWithTask(updatedTask: Todo) {
+function updateStoreWithTodo(updatedTodo: Todo) {
   const updatedStore = produce(store.getValue(), (draft) => {
-    const taskIndex = draft.todos.findIndex(t => t.id === updatedTask.id);
+    const taskIndex = draft.todos.findIndex(t => t.id === updatedTodo.id);
     if (taskIndex !== -1) {
-      draft.todos[taskIndex] = updatedTask;
+      draft.todos[taskIndex] = updatedTodo;
     }
   });
 
