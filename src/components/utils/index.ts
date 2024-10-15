@@ -1,1 +1,1 @@
-export { UserIdObservingElement } from './UserIdObservingElement';
+export { UserIdObservingElement } from "./UserIdObservingElement";

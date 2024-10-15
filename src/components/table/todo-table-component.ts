@@ -1,8 +1,10 @@
+// Author: Manuel Puchner, Jakob Schlager, Josef Stieg, Sophie Stöger, Sophie Binder
+
 import { html, render } from "lit-html";
 import { store } from "../../features";
 import { distinctUntilChanged, filter, map, share, tap } from "rxjs";
 import { Todo } from "../../features/todo";
-import {  UserIdObservingElement } from "../utils";
+import { UserIdObservingElement } from "../utils";
 
 class ToDoTableComponent extends UserIdObservingElement {
   static observedAttributes = ["user-id"];

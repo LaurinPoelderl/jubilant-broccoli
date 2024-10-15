@@ -1,3 +1,5 @@
+// Author: Manuel Puchner, Jakob Schlager, Josef Stieg, Sophie Stöger, Sophie Binder
+
 import { produce } from "immer";
 import { Todo } from ".";
 import { BASE_URL, store } from "../";

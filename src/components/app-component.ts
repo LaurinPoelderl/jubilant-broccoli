@@ -1,3 +1,5 @@
+// Author: Manuel Puchner, Jakob Schlager, Josef Stieg, Sophie Stöger, Sophie Binder
+
 import { html, render } from "lit-html";
 import { store } from "../features";
 import { AppViewmodel, createAppViewmodel } from "./AppViewmodel";
@@ -27,7 +29,6 @@ class AppComponent extends HTMLElement {
     console.log("render component: ", viewModel);
     render(this.template(viewModel), this.root);
   }
-
 
   template(viewModel: AppViewmodel) {
     return html`

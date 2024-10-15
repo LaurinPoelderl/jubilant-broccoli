@@ -1,10 +1,11 @@
+// Author: Manuel Puchner, Jakob Schlager, Josef Stieg, Sophie Stöger, Sophie Binder
+
 import { html, render } from "lit-html";
 import { User } from "../../features/user";
 import { store } from "../../features";
 import "../table/todo-table-component";
 import { distinctUntilChanged, filter, map, tap } from "rxjs";
 import { UserIdObservingElement } from "../utils";
-
 
 class UserTodosComponent extends UserIdObservingElement {
   constructor() {
@@ -27,9 +28,7 @@ class UserTodosComponent extends UserIdObservingElement {
     <div class="container">
       <h2>${user.name}</h2>
       <hr />
-      <todo-table
-        user-id=${user.id}
-      ></todo-table>
+      <todo-table user-id=${user.id}></todo-table>
     </div>
   `;
 }

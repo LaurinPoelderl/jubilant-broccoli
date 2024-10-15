@@ -1,3 +1,5 @@
+// Author: Manuel Puchner, Jakob Schlager, Josef Stieg, Sophie Stöger, Sophie Binder
+
 import { Model, store } from "../features";
 import { Todo, toggleTodoCompleted } from "../features/todo";
 import { User } from "../features/user";
@@ -28,6 +30,6 @@ export function createAppViewmodel(model: Model): AppViewmodel {
     toggleTodoCompleted: async (event: CustomEvent) => {
       const todoId = event.detail as number;
       toggleTodoCompleted(todoId);
-    }
+    },
   };
 }
