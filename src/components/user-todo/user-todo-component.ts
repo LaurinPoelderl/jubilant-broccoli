@@ -27,7 +27,11 @@ class UserTodosComponent extends UserIdObservingElement {
                 distinctUntilChanged(),
                 map(template)
             )
-            .subscribe(content => render(content, this.shadowRoot))
+            .subscribe(content => {
+                render(content, this.shadowRoot)
+                const table = this.shadowRoot.querySelector("todo-table")
+                table.addEventListener("todo-clicked", (e: CustomEvent) => console.log("todo click event recweived", e))
+            })
     }
 }
 customElements.define("user-todos", UserTodosComponent)

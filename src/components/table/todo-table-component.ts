@@ -18,29 +18,34 @@ class ToDoTableComponent extends UserIdObservingElement {
         tap(todos => console.log(todos)),
         distinctUntilChanged()
       )
-      .subscribe(todos => render(template(todos), this.shadowRoot))
+      .subscribe(todos => render(this.template(todos), this.shadowRoot))
+  }
+  template(todos: Todo[]) {
+    const rows = todos.map(todo => html`<tr @click=${() => this.todoSelected(todo)}><td id=${todo.id}>${todo.id}</td><td>${todo.title}</td></tr>`)
+    return html`
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Title
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+  `
+  }
+  todoSelected(todo: Todo) {
+    console.log("todo clicked", todo)
+    const event = new CustomEvent("todo-clicked", {detail: todo.id})
+    this.dispatchEvent(event)
   }
 }
 customElements.define("todo-table", ToDoTableComponent)
 
-function template(todos: Todo[]) {
-  const rows = todos.map(todo => html`<tr><td>${todo.id}</td><td>${todo.title}</td></tr>`)
-  return html`
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-  <table>
-    <thead>
-      <tr>
-        <th>
-          ID
-        </th>
-        <th>
-          Title
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      ${rows}
-    </tbody>
-  </table>
-`
-}
