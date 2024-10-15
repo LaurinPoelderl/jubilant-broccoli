@@ -48,3 +48,32 @@ export async function toggleTodoCompleted(todoId: number) {
 
   store.next(next);
 }
+
+export async function deleteTodo(todoId: number) {
+  const todo = store.getValue().todos.find((todo) => todo.id === todoId);
+
+  if (!todo) {
+    return;
+  }
+
+  const response = await fetch(`${BASE_URL}/todos/${todoId}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    console.error("Failed to delete todo");
+    store.next(store.getValue());
+    return;
+  }
+
+  const next = produce(store.getValue(), (draft) => {
+    draft.todos = draft.todos.filter((todo) => todo.id !== todoId);
+  });
+
+  store.next(next);
+}
+
+export async function createTodo() {
+
+}
+

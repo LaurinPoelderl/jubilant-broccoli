@@ -2,6 +2,7 @@
 
 import { Model, store } from "../features";
 import { Todo, toggleTodoCompleted } from "../features/todo";
+import { deleteTodo } from "../features/todo/todo-service";
 import { User } from "../features/user";
 
 export type UserTodos = {
@@ -12,6 +13,7 @@ export type UserTodos = {
 export interface AppViewmodel {
   userTodos: UserTodos[];
   toggleTodoCompleted: (event: CustomEvent) => Promise<void>;
+  deleteTodo: (event: CustomEvent) => Promise<void>;
 }
 
 export function createAppViewmodel(model: Model): AppViewmodel {
@@ -31,5 +33,9 @@ export function createAppViewmodel(model: Model): AppViewmodel {
       const todoId = event.detail as number;
       toggleTodoCompleted(todoId);
     },
+    deleteTodo: async (event: CustomEvent) => {
+      const todoId = event.detail as number;
+      deleteTodo(todoId);
+    }
   };
 }

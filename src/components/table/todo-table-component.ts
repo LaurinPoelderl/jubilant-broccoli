@@ -56,6 +56,7 @@ class ToDoTableComponent extends UserIdObservingElement {
             <th>ID</th>
             <th>Title</th>
             <th>Completed</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -72,6 +73,10 @@ class ToDoTableComponent extends UserIdObservingElement {
                     @click=${() => this.toggleTodoCompleted(todo)}
                   />
                 </td>
+                <td>
+                  <button @click=${() => this.deleteTodoById(todo)}
+                  >🗑️</button>
+                </td>
               </tr>
             `
           )}
@@ -82,6 +87,15 @@ class ToDoTableComponent extends UserIdObservingElement {
 
   toggleTodoCompleted(todo: Todo) {
     const event = new CustomEvent("toggle-todo-completed", {
+      detail: todo.id,
+      bubbles: true,
+      composed: true,
+    });
+    this.dispatchEvent(event);
+  }
+
+  deleteTodoById(todo: Todo) {
+    const event = new CustomEvent("delete-todo", {
       detail: todo.id,
       bubbles: true,
       composed: true,
