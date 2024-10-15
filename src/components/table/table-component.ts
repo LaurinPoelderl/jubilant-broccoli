@@ -26,10 +26,10 @@ class TodoTable extends UserIdObservingElement {
     console.log(todos)
     const rows = todos.map(todo => {
       return html`
-      <tr id=${todo.id} @click=${() => toggleTodo(todo)}>
+      <tr id=${todo.id} >
         <td>${todo.id}</td>
         <td>${todo.title}</td>
-        <td>${todo.completed? `😊` : `😔`}</td>
+        <input type="checkbox" ?checked=${todo.completed} @click=${() => toggleTodo(todo)}/>
       </tr>
     `
     })
