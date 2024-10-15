@@ -8,9 +8,9 @@ export async function loadAllTodos() {
 
   let next = produce(store.getValue(), (draft) => {
     draft.todos = todos;
-  })
+  });
 
-  console.log("next is:", next);  
+  console.log("next is:", next);
 
   store.next(next);
 }
