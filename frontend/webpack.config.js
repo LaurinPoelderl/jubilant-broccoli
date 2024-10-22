@@ -20,7 +20,21 @@ const config = {
     devServer: {
         open: true,
         host: 'localhost',
-        port: 4200
+        port: 4200,
+        proxy: [
+            {
+                context: ["/api"],
+                target: `http://localhost:8080`,
+                /*
+                pathRewrite: {
+                    "/api/": "/"
+                },
+                */
+                changeOrigin: true,
+                secure: false,
+                logLevel: "debug"
+            }
+        ]         
     },
     plugins: [
         new HtmlWebpackPlugin({

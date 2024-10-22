@@ -30,7 +30,8 @@ class UserTodosComponent extends UserIdObservingElement {
             .subscribe(content => {
                 render(content, this.shadowRoot)
                 const table = this.shadowRoot.querySelector("todo-table")
-                table.addEventListener("todo-clicked", (e: CustomEvent) => console.log("todo click event recweived", e))
+                table.addEventListener("todo-clicked", (e: CustomEvent) => console.log("todo click event received !", e))
+                table.addEventListener("todo-clicked", (e: CustomEvent) => console.log("todo click event received (2)", e))
             })
     }
 }
