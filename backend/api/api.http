@@ -6,7 +6,7 @@ GET {{BASE_URL}}/todos
 ###
 
 # @name addtodo
-POST {{BASE_URL}}/todos
+POST {{BASE_URL}}/{{INSERTED}}
 Content-Type: application/json
 
 {

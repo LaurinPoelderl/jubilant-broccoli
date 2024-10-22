@@ -18,6 +18,7 @@ import jakarta.ws.rs.core.UriBuilder;
 public class ToDoResource {
     @Inject ToDoRepository todoRepository;
     @Inject ToDoMapper toDoMapper;
+    @Inject ToDoSocket toDoSocket;
 
     @GET
     public List<ToDoDto> allTodos() {
@@ -32,6 +33,9 @@ public class ToDoResource {
     public Response save(ToDoDto todoDto) {
         var toDo = toDoMapper.fromResource(todoDto);
         todoRepository.persistAndFlush(toDo);
+        //broadcast newTodo
+        toDoSocket.broadcast("new Todo");
+
         var uri = UriBuilder
             .fromResource(ToDoResource.class)
             .path("" + toDo.id).build();
