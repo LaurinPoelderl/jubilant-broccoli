@@ -1,5 +1,5 @@
-node_modules
-dist
+frontend/node_modules
+frontend/dist
 .DS_Store
 .idea
 
@@ -31,7 +31,7 @@ backend/.vscode
 backend/.factorypath
 
 # OSX
-backend/.DS_Store
+.DS_Store
 
 # Vim
 backend/*.swp
