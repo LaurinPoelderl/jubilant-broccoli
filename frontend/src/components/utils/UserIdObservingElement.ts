@@ -6,7 +6,6 @@ export abstract class UserIdObservingElement extends HTMLElement {
         this.subscribe()
     }
     attributeChangedCallback(name: string, _: any, value: string) {
-        console.log("attributeChangedCallback", name, _, value)
         switch (name) {
             case "user-id":
                 this.subscribe()

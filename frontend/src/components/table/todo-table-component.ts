@@ -15,7 +15,6 @@ class ToDoTableComponent extends UserIdObservingElement {
       .pipe(
         map(model => model.todos),
         map(todos => todos.filter(isMyTodo)),
-        tap(todos => console.log(todos)),
         distinctUntilChanged()
       )
       .subscribe(todos => render(this.template(todos), this.shadowRoot))

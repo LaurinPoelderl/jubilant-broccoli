@@ -32,7 +32,8 @@ const config = {
                 */
                 changeOrigin: true,
                 secure: false,
-                logLevel: "debug"
+                logLevel: "debug",
+                ws: true
             }
         ]         
     },
@@ -67,7 +68,7 @@ const config = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
+        extensions: ['.ts', '.js', '...'],
     },
 };
 

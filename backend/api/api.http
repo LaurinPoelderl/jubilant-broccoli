@@ -1,7 +1,11 @@
 @BASE_URL=http://localhost:4200/api
+@INSERTED={{addtodo.response.body.id}}
 
+##
 GET {{BASE_URL}}/todos
 ###
+
+# @name addtodo
 POST {{BASE_URL}}/todos
 Content-Type: application/json
 
@@ -11,3 +15,5 @@ Content-Type: application/json
     "completed": true
 }
 ###
+GET {{BASE_URL}}/todos/{{INSERTED}}
+
