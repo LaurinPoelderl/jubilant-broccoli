@@ -20,6 +20,6 @@ export abstract class UserIdObservingElement extends HTMLElement {
 
   get userId(): User["id"] | undefined {
     const userIdAttr = this.getAttribute("user-id");
-    return userIdAttr ? userIdAttr : undefined;
+    return userIdAttr ? Number(userIdAttr) : undefined;
   }
 }

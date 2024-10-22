@@ -32,6 +32,10 @@ export async function createUser(draft: UserDraft) {
 
   const user = await response.json();
 
+  addUserToStore(user);
+}
+
+export function addUserToStore(user: User) {
   const next = produce(store.getValue(), (draft) => {
     draft.users.push(user);
   });
@@ -49,6 +53,10 @@ export async function deleteUser(userId: User["id"]) {
     return;
   }
 
+  deleteUserFromStore(userId);
+}
+
+export function deleteUserFromStore(userId: User["id"]) {
   const next = produce(store.getValue(), (draft) => {
     draft.users = draft.users.filter((user) => user.id !== userId);
     draft.todos = draft.todos.filter((todo) => todo.userId !== userId);

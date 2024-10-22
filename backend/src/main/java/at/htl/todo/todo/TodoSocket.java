@@ -1,5 +1,7 @@
 package at.htl.todo.todo;
 
+import at.htl.todo.utils.ws.WebsocketActionType;
+import at.htl.todo.utils.ws.WebsocketBroadcaster;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.websocket.*;
 import jakarta.websocket.server.PathParam;
@@ -46,5 +48,17 @@ public class TodoSocket {
                 }
             });
         });
+    }
+
+    public void broadcastTodoCreated(TodoDTO todoDTO, String username) {
+        WebsocketBroadcaster.broadcastObjectWithAction(sessions, WebsocketActionType.CREATE, todoDTO, username);
+    }
+
+    public void broadcastTodoUpdated(TodoDTO updatedTodoDTO, String username) {
+        WebsocketBroadcaster.broadcastObjectWithAction(sessions, WebsocketActionType.UPDATE, updatedTodoDTO, username);
+    }
+
+    public void broadcastTodoDeleted(Long id, String username) {
+        WebsocketBroadcaster.broadcastObjectWithAction(sessions, WebsocketActionType.DELETE, id, username);
     }
 }

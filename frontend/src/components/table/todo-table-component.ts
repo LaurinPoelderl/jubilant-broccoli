@@ -5,6 +5,7 @@ import { store } from "../../features";
 import { distinctUntilChanged, filter, map, share, tap } from "rxjs";
 import { Todo } from "../../features/todo";
 import { UserIdObservingElement } from "../utils";
+import { repeat } from "lit-html/directives/repeat.js";
 
 class ToDoTableComponent extends UserIdObservingElement {
   static observedAttributes = ["user-id"];
@@ -20,6 +21,13 @@ class ToDoTableComponent extends UserIdObservingElement {
       .pipe(
         map((model) => model.todos),
         map((todos) => todos.filter(isMyTodo)),
+        map((todos) =>
+          todos.sort((a, b) => {
+            if (a.completed) return 1;
+            if (b.completed) return -1;
+            return 0;
+          })
+        ),
         distinctUntilChanged()
       )
       .subscribe((todos) => render(this.template(todos), this.shadowRoot));
@@ -63,7 +71,9 @@ class ToDoTableComponent extends UserIdObservingElement {
           </tr>
         </thead>
         <tbody>
-          ${todos.map(
+          ${repeat(
+            todos,
+            (todo) => todo.id, // Unique key for each todo
             (todo) => html`
               <tr>
                 <td>${todo.id}</td>
@@ -77,8 +87,7 @@ class ToDoTableComponent extends UserIdObservingElement {
                   />
                 </td>
                 <td>
-                  <button @click=${() => this.deleteTodoById(todo)}
-                  >🗑️</button>
+                  <button @click=${() => this.deleteTodoById(todo)}>🗑️</button>
                 </td>
               </tr>
             `

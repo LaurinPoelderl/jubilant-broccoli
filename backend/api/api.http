@@ -16,4 +16,20 @@ Content-Type: application/json
 
 
 ###
+
 GET {{created_location}}
+
+###
+
+PUT {{created_location}}
+Content-Type: application/json
+
+{
+  "completed": true
+}
+
+###
+
+DELETE {{created_location}}
+
+###

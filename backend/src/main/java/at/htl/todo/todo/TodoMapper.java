@@ -1,14 +1,18 @@
 package at.htl.todo.todo;
 
+import at.htl.todo.utils.Mapper;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class TodoMapper {
-    TodoDTO toResource(Todo todo){
+public class TodoMapper implements Mapper<Todo, TodoDTO> {
+
+    @Override
+    public TodoDTO toResource(Todo todo){
         return new TodoDTO(todo.id, todo.userId, todo.title, todo.completed);
     }
 
-    Todo fromResource(TodoDTO todoDTO){
+    @Override
+    public Todo fromResource(TodoDTO todoDTO){
         Todo todo = new Todo();
         todo.id = todoDTO.id();
         todo.userId = todoDTO.userId();

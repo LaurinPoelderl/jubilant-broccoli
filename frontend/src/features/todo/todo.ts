@@ -2,7 +2,7 @@ import { User } from "../user";
 
 export type Todo = {
   readonly userId: User["id"];
-  readonly id: string;
+  readonly id: number;
   readonly title: string;
   readonly completed: boolean;
 };
