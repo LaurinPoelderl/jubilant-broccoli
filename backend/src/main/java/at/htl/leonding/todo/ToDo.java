@@ -1,4 +1,4 @@
-package at.htl.leonding;
+package at.htl.leonding.todo;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;

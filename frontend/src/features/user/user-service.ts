@@ -2,7 +2,7 @@ import { produce } from "immer";
 import { BASE_URL, store } from ".."
 
 export async function loadAllUsers() {
-  const res = await fetch(`${BASE_URL}/users`);
+  const res = await fetch(`https://jsonplaceholder.typicode.com/users`)
   const users = await res.json();
 
   let next = produce(store.getValue(), (draft) => {
