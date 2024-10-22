@@ -1,0 +1,22 @@
+
+@INSERTED={{addTodo.response.body.id}}
+
+###
+
+GET {{BASE_URL}}/api/todos
+
+###
+# @name addTodo
+POST {{BASE_URL}}/api/todos
+Content-Type: application/json
+
+{
+  "title": "Learn Node.js",
+  "userId": 2,
+  "completed": false
+}
+> {% client.global.set("created_location", response.headers.valueOf("Location")); %}
+
+
+###
+GET {{created_location}}
