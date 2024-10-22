@@ -1,6 +1,3 @@
-
-@INSERTED={{addTodo.response.body.id}}
-
 ###
 
 GET {{BASE_URL}}/api/todos

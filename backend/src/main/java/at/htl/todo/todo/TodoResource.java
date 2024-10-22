@@ -32,7 +32,7 @@ public class TodoResource {
     }
 
     @GET
-    @Path("{id}:[0-9]+")
+    @Path("{id:[0-9]+}")
     public Response getTodoById(@PathParam("id") Long id) {
         var todo = todoRepository.findByIdOptional(id);
 
