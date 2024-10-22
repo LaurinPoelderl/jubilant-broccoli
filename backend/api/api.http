@@ -1,19 +1,26 @@
 @BASE_URL=http://localhost:4200/api
-@INSERTED={{addtodo.response.body.id}}
 
 ##
 GET {{BASE_URL}}/todos
-###
 
+
+### Step 1: Add Todo
 # @name addtodo
-POST {{BASE_URL}}/todos
+POST {{BASE_URL}}/todos HTTP/1.1
 Content-Type: application/json
 
 {
-    "userId": 1,
+    "userId": 3,
     "title": "geposted from REST Client",
     "completed": true
 }
-###
-GET {{BASE_URL}}/todos/{{INSERTED}}
+
+### Step 2: Get the Location header
+@LOCATIONINFO = {{addtodo.response.headers.location}}
+
+
+### Step 3: GET request using the location
+GET {{LOCATIONINFO}}
+
+
 
