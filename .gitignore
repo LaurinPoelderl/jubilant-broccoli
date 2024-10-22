@@ -2,3 +2,51 @@ node_modules
 dist
 .DS_Store
 .idea
+
+#Maven
+backend/target/
+backend/pom.xml.tag
+backend/pom.xml.releaseBackup
+backend/pom.xml.versionsBackup
+backend/release.properties
+backend/.flattened-pom.xml
+
+backend/# Eclipse
+backend/.project
+backend/.classpath
+backend/.settings/
+backend/bin/
+
+# IntelliJ
+backend/.idea
+backend/*.ipr
+backend/*.iml
+backend/*.iws
+
+# NetBeans
+backend/nb-configuration.xml
+
+# Visual Studio Code
+backend/.vscode
+backend/.factorypath
+
+# OSX
+backend/.DS_Store
+
+# Vim
+backend/*.swp
+backend/*.swo
+
+# patch
+backend/*.orig
+backend/*.rej
+
+# Local environment
+backend/.env
+
+# Plugin directory
+backend//.quarkus/cli/plugins/
+# TLS Certificates
+backend/.certs/
+
+backend/db/
