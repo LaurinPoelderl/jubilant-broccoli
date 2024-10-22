@@ -1,0 +1,3 @@
+- Goto k8s and start docker-compose for Postgres
+- Goto backend and run "mvn quarkus:dev"
+- Goto frontend and run webpack first "npm i" and afterwards "npm start"
