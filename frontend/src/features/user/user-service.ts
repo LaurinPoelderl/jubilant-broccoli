@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { BASE_URL, store } from ".."
+import { BASE_URL, IDENTITY, store } from ".."
 import { UserDraft, User } from "./user";
 
 export async function loadAllUsers() {
@@ -21,6 +21,7 @@ export async function createUser(draft: UserDraft) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Identity": IDENTITY
     },
     body: JSON.stringify(draft),
   });
@@ -46,6 +47,9 @@ export function addUserToStore(user: User) {
 export async function deleteUser(userId: User["id"]) {
   const response = await fetch(`${BASE_URL}/users/${userId}`, {
     method: "DELETE",
+    headers: {
+      "Identity": IDENTITY
+    } 
   });
 
   if (!response.ok) {

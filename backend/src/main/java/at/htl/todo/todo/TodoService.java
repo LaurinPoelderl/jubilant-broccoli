@@ -2,13 +2,13 @@ package at.htl.todo.todo;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.core.Context;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
+@Transactional
 public class TodoService {
 
     @Inject

@@ -13,7 +13,6 @@ import java.util.List;
 
 @Path("todos")
 @Produces(MediaType.APPLICATION_JSON)
-@Transactional
 public class TodoResource {
 
     @Inject

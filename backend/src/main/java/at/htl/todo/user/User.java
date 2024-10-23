@@ -1,7 +1,10 @@
 package at.htl.todo.user;
 
 
+import at.htl.todo.todo.Todo;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -15,4 +18,8 @@ public class User {
     public String username;
 
     public String email;
+
+
+    @OneToMany(mappedBy = "user")
+    public List<Todo> todos;
 }

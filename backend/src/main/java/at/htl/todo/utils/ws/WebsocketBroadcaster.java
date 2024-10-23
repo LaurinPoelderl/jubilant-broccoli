@@ -1,6 +1,7 @@
 package at.htl.todo.utils.ws;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.quarkus.logging.Log;
 import jakarta.websocket.Session;
 
 import java.util.Map;
@@ -22,13 +23,13 @@ public class WebsocketBroadcaster {
                 if (!key.equals(username)) {
                     sessions.get(key).getAsyncRemote().sendObject(jsonMessage, result -> {
                         if (result.getException() != null) {
-                            System.out.println("Unable to send message: " + result.getException());
+                            Log.warn("Unable to send message: " + result.getException());
                         }
                     });
                 }
             });
         } catch (Exception e) {
-            System.out.println("Error serializing object to JSON: " + e.getMessage());
+            Log.warn("Error serializing object to JSON: " + e.getMessage());
         }
     }
 }

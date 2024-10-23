@@ -1,9 +1,3 @@
-import { Todo } from "../todo";
-import {
-  addTodoToStore,
-  deleteTodoFromStore,
-  updateTodoInStore,
-} from "../todo/todo-service";
 import { User } from "../user";
 import { addUserToStore, deleteUserFromStore } from "../user/user-service";
 import { WebsocketActionType, WebsocketMessageWrapper } from "./ws";

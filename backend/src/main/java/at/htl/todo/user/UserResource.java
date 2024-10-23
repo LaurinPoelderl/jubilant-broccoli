@@ -12,7 +12,6 @@ import java.util.List;
 
 @Path("users")
 @Produces(MediaType.APPLICATION_JSON)
-@Transactional
 public class UserResource {
 
 
@@ -41,8 +40,8 @@ public class UserResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response saveUser(UserDTO userDTO) {
-        var user = userService.save(userDTO);
+    public Response saveUser(@HeaderParam("Identity") String username, UserDTO userDTO) {
+        var user = userService.save(userDTO, username);
 
         URI uri = uriInfo.getAbsolutePathBuilder().path(user.id().toString()).build();
         return Response.created(uri)
@@ -52,8 +51,8 @@ public class UserResource {
 
     @DELETE
     @Path("{id:[0-9]+}")
-    public Response deleteUser(Long id) {
-        return userService.delete(id)
+    public Response deleteUser(@HeaderParam("Identity") String username, @PathParam("id") Long id) {
+        return userService.delete(id, username)
                 ? Response.noContent().build()
                 : Response.status(Response.Status.NOT_FOUND).build();
     }

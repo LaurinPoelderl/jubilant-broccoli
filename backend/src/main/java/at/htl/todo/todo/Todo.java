@@ -1,5 +1,6 @@
 package at.htl.todo.todo;
 
+import at.htl.todo.user.User;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,10 +9,11 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column(nullable = false)
-    public Long userId;
-
     public String title;
     public Boolean completed;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
 }
 
